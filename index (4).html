@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSENSITO ($INSEN) - No Regrets, Only Prickly Gains</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Space+Grotesk:wght@400;700&display=swap');
+
+        :root {
+            --bg-blue: #0084FF;
+            --hedgehog-brown: #5C3215;
+            --hedgehog-gold: #FFC000;
+            --accent-white: #FFFFFF;
+            --danger-red: #FF3B30;
+            --soft-white: #F4F6F9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-blue);
+            color: var(--accent-white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand-name {
+            font-family: 'Fredoka One', cursive;
+            letter-spacing: 1px;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            border: 3px solid var(--hedgehog-gold);
+        }
+
+        .brand-name {
+            font-size: 28px;
+            color: var(--accent-white);
+            text-shadow: 3px 3px 0px var(--hedgehog-brown);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--hedgehog-gold);
+            transform: scale(1.05);
+        }
+
+        .btn-cta {
+            background-color: var(--hedgehog-gold);
+            color: var(--hedgehog-brown);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Fredoka One', cursive;
+            text-decoration: none;
+            box-shadow: 0px 6px 0px var(--hedgehog-brown);
+            transition: 0.1s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(2px);
+            box-shadow: 0px 4px 0px var(--hedgehog-brown);
+        }
+
+        .btn-cta:active {
+            transform: translateY(6px);
+            box-shadow: 0px 0px 0px var(--hedgehog-brown);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 50px 100px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 90vh;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 65px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 5px 5px 0px var(--hedgehog-brown);
+        }
+
+        .hero-tagline {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            background-color: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 5px solid var(--hedgehog-gold);
+        }
+
+        .hero-image-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .main-hero-logo {
+            width: 350px;
+            height: 350px;
+            border-radius: 40px;
+            border: 10px solid var(--hedgehog-gold);
+            box-shadow: 15px 15px 0px var(--hedgehog-brown);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* Emergency Panic Button Section */
+        .panic-bar {
+            background-color: var(--hedgehog-brown);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 8px solid var(--hedgehog-gold);
+            border-bottom: 8px solid var(--hedgehog-gold);
+        }
+
+        .panic-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--hedgehog-gold);
+        }
+
+        .panic-desc {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: var(--soft-white);
+        }
+
+        .btn-panic {
+            background-color: var(--danger-red);
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 24px;
+            padding: 20px 50px;
+            border: 4px solid white;
+            border-radius: 50px;
+            box-shadow: 0px 10px 0px #900;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .btn-panic:hover {
+            transform: translateY(3px);
+            box-shadow: 0px 7px 0px #900;
+        }
+
+        .btn-panic:active {
+            transform: translateY(10px);
+            box-shadow: 0px 0px 0px #900;
+        }
+
+        /* Toilet Paper Modal / Popover animation */
+        #tp-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .tp-box {
+            background: var(--soft-white);
+            color: var(--hedgehog-brown);
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 500px;
+            border: 8px solid var(--hedgehog-gold);
+            box-shadow: 0 20px 0px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .tp-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: spin 2s linear infinite;
+        }
+
+        .tp-quote {
+            font-style: italic;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: var(--danger-red);
+        }
+
+        /* Character Lore Section */
+        .lore-section {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 50px;
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .lore-content {
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 45px;
+            margin-bottom: 30px;
+            text-shadow: 4px 4px 0px var(--hedgehog-brown);
+        }
+
+        .lore-card {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 8px solid var(--hedgehog-gold);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .lore-card p {
+            margin-bottom: 15px;
+        }
+
+        /* Tokenomics */
+        .tokenomics {
+            background-color: var(--hedgehog-brown);
+            padding: 100px 50px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 50px auto 0 auto;
+        }
+
+        .stat-card {
+            background: var(--bg-blue);
+            padding: 30px;
+            border-radius: 20px;
+            min-width: 250px;
+            flex: 1;
+            border: 4px solid var(--hedgehog-gold);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.2);
+        }
+
+        .stat-val {
+            font-family: 'Fredoka One', cursive;
+            font-size: 36px;
+            color: var(--hedgehog-gold);
+            margin-bottom: 10px;
+        }
+
+        .stat-lbl {
+            font-weight: bold;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0b1528;
+            padding: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #8899a6;
+            border-top: 4px solid var(--hedgehog-brown);
+        }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+            .hero { flex-direction: column; text-align: center; padding-top: 140px; gap: 50px;}
+            .hero-title { font-size: 45px; }
+            .lore-section { flex-direction: column; }
+            .main-hero-logo { width: 250px; height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-area">
+            <img src="logo.png" alt="Insensito Logo" class="logo-img">
+            <span class="brand-name">INSENSITO</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#lore">Chi Siamo (Lore)</a></li>
+            <li><a href="#tokenomics">Tokenomics</a></li>
+            <li><a href="https://" target="_blank" class="btn-cta">Trade on Kasseal</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1 class="hero-title">Mamma Mia!<br>No Regrets. Just Spikes.</h1>
+            <p class="hero-tagline">Meet INSENSITO: The high-octane, filter-free Italian Hedgehog trading passion on KCC. Zero apologies. Pure raw charts.</p>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <a href="https://kasseal.io" target="_blank" class="btn-cta" style="font-size: 20px; padding: 15px 35px;">BUY ON KASSEAL</a>
+                <a href="#lore" class="btn-cta" style="background: var(--hedgehog-brown); color: white; box-shadow: 0px 6px 0px var(--hedgehog-gold); font-size: 20px; padding: 15px 35px;">READ LORE</a>
+            </div>
+        </div>
+        <div class="hero-image-area">
+            <img src="logo.png" alt="Insensito Meme" class="main-hero-logo">
+        </div>
+    </section>
+
+    <!-- Panic Area -->
+    <section class="panic-bar">
+        <h2 class="panic-title">🛑 ARE YOU PANIC SELLING?! 🛑</h2>
+        <p class="panic-desc">Did the chart dip 1% and now you are crying to your mama? Hit the emergency button below immediately.</p>
+        <button class="btn-panic" onclick="dispenseToiletPaper()">DISPENSE EMERGENCY TOILET PAPER</button>
+    </section>
+
+    <!-- Lore Section -->
+    <section id="lore" class="lore-section">
+        <div class="lore-content">
+            <h2 class="section-title">The Legend of Insensito</h2>
+            <div class="lore-card">
+                <p><strong>Insensito</strong> isn't your average fluffy woodland creature. He is a sharp, middle-aged Italian crypto veteran who combines elite on-chain technical analysis with the fiery, high-octane temperament of a classic passion trader.</p>
+                <p>He operates with fierce, unfiltered directness. If your bags are weak, he'll tell you straight to your face with zero regrets. He doesn't hold hands, he doesn't sweet-talk, and he definitely doesn't tolerate rookie paper-hands.</p>
+                <p style="color: var(--hedgehog-gold); font-weight: bold;">"If you can't handle the spikes, stay away from the hedge!"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="tokenomics">
+        <h2 class="section-title" style="color: var(--accent-white);">INSENSITO TOKENOMICS</h2>
+        <p style="font-size: 20px; max-width: 600px; margin: 0 auto; color: var(--soft-white);">Brutally simple allocation. No hidden traps. Built on KuCoin Community Chain.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-val">1,200,000,000</div>
+                <div class="stat-lbl">Total Supply</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">KCC-20</div>
+                <div class="stat-lbl">Token Standard</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">Kasseal</div>
+                <div class="stat-lbl">Primary DEX Exchange</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Toilet Paper Popover -->
+    <div id="tp-overlay">
+        <div class="tp-box">
+            <div class="tp-icon">🧻</div>
+            <h2>WIPE THOSE TEARS, ROOKIE!</h2>
+            <p class="tp-quote">"Che cavolo fai?! You are panicking over a micro-dip? Take this roll of premium Italian toilet paper, clean yourself up, and hold your spikes high!"</p>
+            <p style="font-weight: bold; margin-bottom: 25px;">- Insensito</p>
+            <button class="btn-cta" onclick="closeModal()">Grazie, Insensito. I will Hold!</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 INSENSITO Token. Spiky investments ahead. Made for passion traders with diamond spines.</p>
+    </footer>
+
+    <!-- Scripting for interactions -->
+    <script>
+        function dispenseToiletPaper() {
+            // Trigger overlay
+            document.getElementById('tp-overlay').style.display = 'flex';
+            
+            // Blast toilet paper emoji burst or confetti
+            var end = Date.now() + (2 * 1000);
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ffffff', '#f4f6f9']
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ffffff', '#f4f6f9']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        function closeModal() {
+            document.getElementById('tp-overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
